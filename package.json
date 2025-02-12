@@ -1,6 +1,7 @@
 {
   "name": "num-input-site",
   "version": "0.0.0",
+  "main": "dist/num-input-site/main.js",
   "scripts": {
     "start": "ng serve",
     "build": "ng build --configuration production --base-href ./",
@@ -28,6 +29,7 @@
     "@angular-devkit/build-angular": "^19.1.6",
     "@angular/cli": "^19.1.6",
     "@angular/compiler-cli": "^19.1.0",
+    "@types/electron": "^1.6.12",
     "@types/jasmine": "~5.1.0",
     "electron": "^34.1.1",
     "jasmine-core": "~5.5.0",

@@ -1,7 +1,7 @@
-import { app, BrowserWindow } from 'electron';
-import path from 'path';
+const { app, BrowserWindow } = require('electron');
+const path = require('path');
 
-let mainWindow: BrowserWindow;
+let mainWindow : Electron.BrowserWindow;
 
 function createWindow() {
   mainWindow = new BrowserWindow({
@@ -13,11 +13,10 @@ function createWindow() {
     },
   });
 
-  // Загрузи Angular-приложение
   if (process.env['NODE_ENV'] === 'development') {
-    mainWindow.loadURL('http://localhost:4200'); // Для разработки
+    mainWindow.loadURL('http://localhost:4200'); //dev
   } else {
-    mainWindow.loadFile(path.join(__dirname, 'dist/num-input-site/browser/index.html')); // Для production
+    mainWindow.loadFile(path.join(__dirname, 'browser/index.html')); //prod
   }
 
   mainWindow.on('closed', () => {
