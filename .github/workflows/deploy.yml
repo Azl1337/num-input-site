@@ -22,7 +22,7 @@ jobs:
         run: npm install
 
       - name: Build Angular app
-        run: npm ng build -- --configuration production --base-href "https://azl1337.github.io/num-input-site/"
+        run: npm run ng build -- --configuration production --base-href "https://azl1337.github.io/num-input-site/"
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
