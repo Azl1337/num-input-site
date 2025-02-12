@@ -35,4 +35,6 @@ import { NumberInputComponent } from './number-input/number-input.component';
   `,
   ],
 })
-export class AppComponent {}
+export class AppComponent {
+  title = 'num-input-site';
+}
