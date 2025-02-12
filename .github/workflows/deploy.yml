@@ -22,11 +22,11 @@ jobs:
         run: npm install
 
       - name: Build Angular app
-        run: npm run build -- --configuration production --base-href "https://azl1337.github.io/num-input-site/#/browser"
+        run: npm run build -- --configuration production --base-href "https://azl1337.github.io/num-input-site/"
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist/num-input-site 
+          publish_dir: ./dist/num-input-site/browser
           keep_files: false 
