@@ -1,26 +1,48 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { MatButtonModule } from '@angular/material/button';
-import { MatInputModule } from '@angular/material/input';
-import { MatCardModule } from '@angular/material/card';
-import { NumberService } from './number-input.service';
+import {
+  IonHeader,
+  IonToolbar,
+  IonTitle,
+  IonContent,
+  IonCard,
+  IonCardHeader,
+  IonCardTitle,
+  IonCardContent,
+  IonItem,
+  IonInput,
+  IonButton,
+  IonList,
+  IonLabel,
+} from '@ionic/angular/standalone';
+import { NumberService } from './app.service';
 import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'app-number-input',
+  selector: 'app-root',
   standalone: true,
   imports: [
-    CommonModule, 
-    FormsModule, 
-    MatButtonModule, 
-    MatInputModule, 
-    MatCardModule
+    CommonModule,
+    FormsModule,
+    IonHeader,
+    IonToolbar,
+    IonTitle,
+    IonContent,
+    IonCard,
+    IonCardHeader,
+    IonCardTitle,
+    IonCardContent,
+    IonItem,
+    IonInput,
+    IonButton,
+    IonList,
+    IonLabel,
   ],
-  templateUrl: './number-input.component.html',
-  styleUrls: ['./number-input.component.css'],
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss'],
 })
-export class NumberInputComponent {
+export class AppComponent {
   inputNumber: number | null = null;
   isInputEnabled = false;
 

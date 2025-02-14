@@ -1,40 +1,53 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
-import { NumberInputComponent } from './number-input/number-input.component';
+import { NumberService } from './app.service';
+import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'app-root',
+  selector: 'app-number-input',
   standalone: true,
   imports: [
     CommonModule, 
+    FormsModule, 
     MatButtonModule, 
     MatInputModule, 
-    MatCardModule,
-    NumberInputComponent 
+    MatCardModule
   ],
-  template: `
-    <mat-card>
-      <mat-card-header>
-        <mat-card-title>Сохраниение введенной цифры в cookie</mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
-        <app-number-input></app-number-input>
-      </mat-card-content>
-    </mat-card>
-  `,
-  styles: [
-    `
-    mat-card {
-      max-width: 400px;
-      margin: 2rem auto;
-      padding: 2rem;
-    }
-  `,
-  ],
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  title = 'num-input-site';
+  inputNumber: number | null = null;
+  isInputEnabled = false;
+
+  get savedNumber$(): Observable<number | null> {
+    return this.numberService.savedNumber$;
+  }
+
+  constructor(private numberService: NumberService) {}
+
+  enableInput(): void {
+    this.isInputEnabled = true;
+    this.inputNumber = null;
+  }
+
+  saveNumber(): void {
+    console.log('Input Number:', this.inputNumber);
+    if (this.inputNumber !== null) {
+      this.numberService.saveNumber(this.inputNumber);
+      this.isInputEnabled = false;
+      this.inputNumber = null;
+    } else {
+      console.error('Введите число перед сохранением.');
+    }
+  }
+
+  editNumber(): void {
+    this.isInputEnabled = true;
+    this.numberService.clearNumber();
+  }
 }

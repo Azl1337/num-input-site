@@ -1,0 +1,54 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Введите цифру</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Введите цифру</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+
+      <ion-item>
+        <ion-input
+          type="number"
+          [(ngModel)]="inputNumber"
+          [disabled]="!isInputEnabled"
+          placeholder="Введите цифру"
+        ></ion-input>
+      </ion-item>
+
+      <ion-button
+        expand="block"
+        (click)="enableInput()"
+        [disabled]="isInputEnabled || (savedNumber$ | async) !== null">
+        Внести цифру
+      </ion-button>
+
+      <ion-button
+        expand="block"
+        color="primary"
+        (click)="saveNumber()"
+        [disabled]="!inputNumber">
+        Сохранить
+      </ion-button>
+
+      <ion-button
+        expand="block"
+        color="warning"
+        (click)="editNumber()"
+        [disabled]="(savedNumber$ | async) === null">
+        Изменить
+      </ion-button>
+
+      <ion-list *ngIf="savedNumber$ | async as savedNumber">
+        <ion-item>
+          <ion-label>Сохранённая цифра: {{ savedNumber }}</ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
