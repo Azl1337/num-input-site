@@ -1,39 +1,36 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
+import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class NumberService {
   private savedNumberSubject = new BehaviorSubject<number | null>(null);
+  savedNumber$ = this.savedNumberSubject.asObservable();
 
-  constructor() {
-    this.loadNumber();
-  }
-
-  get savedNumber$(): Observable<number | null> {
-    return this.savedNumberSubject.asObservable();
+  constructor(private cookieService: CookieService) {
+    const savedNumber = this.cookieService.get('savedNumber');
+    if (savedNumber) {
+      this.savedNumberSubject.next(+savedNumber);
+    }
   }
 
   saveNumber(number: number): void {
-    console.log('Saving Number:', number);
-    if (number !== null) {
-      localStorage.setItem('savedNumber', number.toString());
+    try {
+      this.cookieService.set('savedNumber', number.toString(), { expires: 7 }); //7 days to die for cookie
       this.savedNumberSubject.next(number);
-    } else {
-      console.error('Число не может быть null.');
+    } catch (error) {
+      console.error('Ошибка при сохранении цифры:', error);
     }
   }
 
   clearNumber(): void {
-    localStorage.removeItem('savedNumber');
-    this.savedNumberSubject.next(null);
-  }
-
-  private loadNumber(): void {
-    const savedNumber = localStorage.getItem('savedNumber');
-    if (savedNumber) {
-      this.savedNumberSubject.next(+savedNumber);
+    try {
+      this.cookieService.delete('savedNumber');
+      this.savedNumberSubject.next(null);
+    } catch (error) {
+      console.error('Ошибка при удалении цифры:', error);
     }
   }
 }
