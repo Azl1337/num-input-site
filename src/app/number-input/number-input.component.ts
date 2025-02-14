@@ -32,12 +32,17 @@ export class NumberInputComponent {
 
   enableInput(): void {
     this.isInputEnabled = true;
+    this.inputNumber = null;
   }
 
   saveNumber(): void {
+    console.log('Input Number:', this.inputNumber);
     if (this.inputNumber !== null) {
       this.numberService.saveNumber(this.inputNumber);
       this.isInputEnabled = false;
+      this.inputNumber = null;
+    } else {
+      console.error('Введите число перед сохранением.');
     }
   }
 
