@@ -6,9 +6,21 @@
     "start": "ng serve",
     "build": "ng build --configuration production --base-href ./",
     "electron": "tsc && electron .",
+    "electron-dev": "concurrently \"ng build --watch\" \"wait-on http://localhost:4200 && electron .\"",
     "electron-build": "npm run build && npm run electron"
   },
   "private": true,
+  "author": {
+    "name": "Azl1337",
+    "email": "mkzer0@yandex.ru",
+    "url": "https://github.com/Azl1337"
+  },
+  "description": "Приложение для ввода и управления цифрами с сохранением.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Azl1337/num-input-site"
+  },
   "dependencies": {
     "@angular/animations": "^19.1.0",
     "@angular/cdk": "^19.1.4",
@@ -40,5 +52,26 @@
     "karma-jasmine-html-reporter": "~2.1.0",
     "tslib": "^2.8.1",
     "typescript": "^5.7.3"
+  },
+  "build": {
+    "appId": "com.example.numinput",
+    "productName": "NumInputApp",
+    "directories": {
+      "output": "dist/electron"
+    },
+    "files": [
+      "dist/num-input-site/**/*",
+      "main.js"
+    ],
+    "win": {
+      "target": "nsis"
+    },
+    "mac": {
+      "target": "dmg"
+    },
+    "linux": {
+      "target": "AppImage"
+    }
   }
 }
+
